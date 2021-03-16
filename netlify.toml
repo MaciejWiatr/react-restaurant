@@ -1,6 +1,6 @@
 # example netlify.toml
 [build]
-  command = "yarn build:export"
+  command = "yarn build"
   functions = "netlify/functions"
   publish = "out"
 
@@ -19,3 +19,10 @@
   #  publish = "dist" # Folder with the static content for _redirect file
 
   ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[context.production.environment]
+  NEXT_SERVERLESS = "true"
+  NODE_ENV = "production"
