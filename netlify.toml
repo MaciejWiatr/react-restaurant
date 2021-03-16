@@ -1,6 +1,6 @@
 # example netlify.toml
 [build]
-  command = "next build:export"
+  command = "yarn build:export"
   functions = "netlify/functions"
   publish = "out"
 
