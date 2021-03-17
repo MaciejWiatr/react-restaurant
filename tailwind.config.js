@@ -18,7 +18,7 @@ module.exports = {
             },
             backgroundImage: {
                 "hero-img":
-                    "url('https://images.pexels.com/photos/2923034/pexels-photo-2923034.jpeg?cs=srgb&dl=pexels-edward-eyer-2923034.jpg&fm=jpg')",
+                    "url('/bg.jpg')",
             },
             width: {
                 card: "36rem",
