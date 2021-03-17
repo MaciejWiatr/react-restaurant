@@ -10,6 +10,7 @@ const customStyles = {
         zIndex: "98",
     },
     content: {
+        borderRadius: "10px",
         top: "50%",
         left: "50%",
         right: "auto",
@@ -55,6 +56,7 @@ export default function Home() {
     const [actveProduct, setActiveProduct] = useState({
         name: "",
         description: "",
+        photo: "",
     });
     const [cart, setCart] = useState(new Array());
     const [showCart, setShowCart] = useState(false);
@@ -103,10 +105,44 @@ export default function Home() {
             >
                 <h1 className="font-medium z-50 ml-4">Trattoria deBarwi</h1>
                 <div className="relative flex flex-centers">
-                    <button className="mr-4 text-xl">
+                    <button
+                        className="mr-4 text-xl"
+                        onClick={() => setShowCart(!showCart)}
+                    >
                         <FiShoppingCart />
                     </button>
-                    <div className="absolute w-48 h-32 bg-white right-4 top-6 rounded-lg shadow"></div>
+                    {showCart ? (
+                        <div className="absolute w-64 right-4 top-6 shadow text-black rounded-t-lg">
+                            <ul className="p-3 space-y-2 overflow-y-scroll h-48 bg-white bg-opacity-30 blurred rounded-t-lg">
+                                {cart.map((p) => (
+                                    <li
+                                        key={p.id}
+                                        className="bg-white rounded-lg flex items-stretch overflow-hidden"
+                                    >
+                                        <p className="p-2 text-sm overflow-hidden flex-grow">
+                                            {p.name.substr(0, 100)}
+                                        </p>
+                                        <div className="border-l flex items-center bg-gray-800 text-white">
+                                            <p className="ml-2 mr-2 font-semibold ">
+                                                {p.price}zł
+                                            </p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className=" w-full bg-white flex justify-start space-x-1 items-center p-2 rounded-b-lg">
+                                <button className="bg-gray-100 text-black rounded p-2 transition-all hover:bg-green-100">
+                                    Zamów
+                                </button>
+                                <button
+                                    onClick={() => setCart([])}
+                                    className="bg-gray-100 text-black rounded p-2 transition-all hover:bg-red-100"
+                                >
+                                    Wyczyść Koszyk
+                                </button>
+                            </div>
+                        </div>
+                    ) : null}
                 </div>
             </nav>
             <div
@@ -154,33 +190,43 @@ export default function Home() {
                         : document.getElementById("__next")
                 }
             >
-                <div className="w-card bg-white flex overflow-hidden z-max">
-                    <div className="w-1/2 h-full overflow-hidden">
-                        <img src="/img.jpg" className="h-full object-cover" />
+                <div className="w-card h-96 bg-white flex overflow-hidden z-max">
+                    <div className="w-1/2 h-full">
+                        <img
+                            src={actveProduct.img}
+                            // layout="fill"
+                            className="object-cover h-full"
+                        />
                     </div>
                     <div
-                        className="w-1/2 h-full p-3 flex flex-col
+                        className="w-1/2 p-4 flex flex-col
                      items-start"
                     >
-                        <h2 className="font-semibold text-2xl">
+                        <h2 className="font-semibold text-2xl pb-2 mb-2 w-full">
                             {actveProduct.name}
                         </h2>
                         <p className="text-sm text-gray-500">Składniki:</p>
-                        <ul className="list-decimal pl-4">
-                            <li>Ciasto na pizze</li>
-                            <li>Sos do pizzy</li>
-                            <li>Ser do pizzy</li>
+                        <ul className="product-list__wrapper">
+                            <li className="product-list__item">
+                                Ciasto na pizze
+                            </li>
+                            <li className="product-list__item">Sos do pizzy</li>
+                            <li className="product-list__item">Ser do pizzy</li>
                         </ul>
                         <p className="text-sm text-gray-500">Opis:</p>
-                        <p className="flex-grow">{actveProduct.description}</p>
-                        <p className="text-sm text-gray-500">Cena:</p>
-                        <p className="text-lg font-medium mb-2"> 12.99zł</p>
-                        <button
-                            onClick={() => addCartItem(actveProduct.id)}
-                            className="bg-black text-white rounded p-1 pl-2 pr-2 transform hover:scale-105 hover:bg-gray-700 transition-all"
-                        >
-                            Dodaj do koszyka
-                        </button>
+                        <p className="flex-grow overflow-y-scroll bg-gray-100 rounded-lg mb-2 p-2">
+                            {actveProduct.description}
+                        </p>
+                        <div className="flex flex-col items-start w-full ">
+                            <p className="text-sm text-gray-500">Cena:</p>
+                            <p className="text-lg font-medium mb-2"> 12.99zł</p>
+                            <button
+                                onClick={() => addCartItem(actveProduct.id)}
+                                className="bg-black text-white rounded p-1 pl-2 pr-2 transform hover:scale-105 hover:bg-gray-700 transition-all"
+                            >
+                                Dodaj do koszyka
+                            </button>
+                        </div>
                     </div>
                 </div>
             </Modal>
