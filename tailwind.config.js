@@ -17,8 +17,7 @@ module.exports = {
                 cyan: colors.cyan,
             },
             backgroundImage: {
-                "hero-img":
-                    "url('/bg.jpg')",
+                "hero-img": "url('/bg.jpg')",
             },
             width: {
                 card: "36rem",
@@ -26,6 +25,9 @@ module.exports = {
             zIndex: {
                 max: "99",
             },
+            ripple: (theme) => ({
+                colors: theme("colors"),
+            }),
         },
     },
     variants: {},
@@ -46,5 +48,7 @@ module.exports = {
 
             addUtilities(utils);
         }),
+        require("tailwindcss-textshadow"),
+        require("tailwindcss-ripple")(),
     ],
 };

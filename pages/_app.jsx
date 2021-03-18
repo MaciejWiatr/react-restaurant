@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import "../styles/globals.scss";
+import Head from "next/head";
 
 const defaultProducts = {
     products: [
@@ -39,9 +40,14 @@ const productsContext = createContext(defaultProducts);
 
 function MyApp({ Component, pageProps }) {
     return (
-        <productsContext.Provider value={defaultProducts}>
-            <Component {...pageProps} />
-        </productsContext.Provider>
+        <>
+            <Head>
+                <title>Restauracja Trattoria deWiatr</title>
+            </Head>
+            <productsContext.Provider value={defaultProducts}>
+                <Component {...pageProps} />
+            </productsContext.Provider>
+        </>
     );
 }
 
