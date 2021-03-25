@@ -1,8 +1,9 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import "../styles/globals.scss";
 import Head from "next/head";
+import { IContextProps } from "ts/interfaces";
 
-const defaultProducts = {
+const defaultContext = {
     products: [
         {
             id: 1,
@@ -36,20 +37,21 @@ const defaultProducts = {
     username: "",
 };
 
-const productsContext = createContext(defaultProducts);
+const appContext = createContext<Partial<IContextProps>>(defaultContext);
 
 function MyApp({ Component, pageProps }) {
+    const [context, setContext] = useState(defaultContext);
     return (
         <>
             <Head>
                 <title>Restauracja Trattoria deWiatr</title>
             </Head>
-            <productsContext.Provider value={defaultProducts}>
+            <appContext.Provider value={{ ...context, setContext }}>
                 <Component {...pageProps} />
-            </productsContext.Provider>
+            </appContext.Provider>
         </>
     );
 }
 
 export default MyApp;
-export { productsContext };
+export { appContext };

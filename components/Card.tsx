@@ -1,10 +1,24 @@
 import Image from "next/image";
+import { FC } from "react";
 
-export function Card({ name, description, id, openModal, img }) {
+interface IProps {
+    name: string;
+    description: string;
+    id: number;
+    openModal: (id: number) => void;
+    img: string;
+}
+
+const Card: FC<IProps> = ({ name, description, id, openModal, img }) => {
     return (
         <div className="card">
             <figure className="h-32 overflow-hidden relative">
-                <Image src={img} layout="fill" className="object-cover" />
+                <Image
+                    src={img}
+                    layout="fill"
+                    className="object-cover"
+                    quality={80}
+                />
                 <div className="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
             </figure>
             <div className="p-3">
@@ -23,4 +37,6 @@ export function Card({ name, description, id, openModal, img }) {
             </div>
         </div>
     );
-}
+};
+
+export { Card };

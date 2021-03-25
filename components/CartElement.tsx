@@ -1,18 +1,22 @@
-import { FC } from "react";
-import { IProduct } from "ts/interfaces";
+import { appContext } from "pages/_app";
+import { FC, useContext } from "react";
+import Link from "next/link";
 
-interface IProps {
-    cart: IProduct[];
-    setCart: (arr: IProduct[]) => void;
-}
+const CartElement: FC = () => {
+    const { cart, setContext } = useContext(appContext);
 
-const CartElement: FC<IProps> = ({ cart, setCart }) => {
+    const clearCart = () => {
+        setContext((c) => {
+            return { ...c, cart: [] };
+        });
+    };
+
     return (
         <div className="absolute w-64 right-4 top-6 shadow text-black rounded-t-lg z-max">
             <ul className="p-3 space-y-2 overflow-y-scroll h-48 bg-white bg-opacity-30 blurred rounded-t-lg">
-                {cart.map((p) => (
+                {cart.map((p, index) => (
                     <li
-                        key={p.id}
+                        key={index}
                         className="bg-white rounded-lg flex items-stretch overflow-hidden"
                     >
                         <p className="p-2 text-sm overflow-hidden flex-grow">
@@ -27,12 +31,14 @@ const CartElement: FC<IProps> = ({ cart, setCart }) => {
                 ))}
             </ul>
             <div className=" w-full bg-white flex justify-start space-x-1 items-center p-2 rounded-b-lg">
-                <button className="bg-gray-100 text-black rounded p-2 transition-all hover:bg-green-100">
-                    Zamów
-                </button>
+                <Link href="/order" passHref>
+                    <a className="bg-gray-100 text-black rounded p-2 ripple-bg-gray-50 focus:outline-none focus:ring-2 cursor-pointer">
+                        Zamów
+                    </a>
+                </Link>
                 <button
-                    onClick={() => setCart([])}
-                    className="bg-gray-100 text-black rounded p-2 transition-all hover:bg-red-100"
+                    onClick={() => clearCart()}
+                    className="bg-gray-100 text-black rounded p-2 ripple-bg-gray-50 focus:outline-none focus:ring-2"
                 >
                     Wyczyść Koszyk
                 </button>

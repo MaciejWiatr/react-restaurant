@@ -1,6 +1,8 @@
+import { FC } from "react";
 import Modal from "react-modal";
+import { IProduct } from "ts/interfaces";
 
-export const customStyles = {
+const customStyles = {
     overlay: {
         zIndex: "98",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -18,11 +20,33 @@ export const customStyles = {
     },
 };
 
-export function ProductModal(props) {
+interface IProps {
+    activeProduct: IProduct;
+    modalIsOpen: boolean;
+    closeModal: () => void;
+    addCartItem: (id: number) => void;
+}
+
+const ProductModal: FC<IProps> = ({
+    activeProduct,
+    modalIsOpen,
+    closeModal,
+    addCartItem,
+}) => {
+    const dummyProduct = {
+        id: -1,
+        name: "",
+        description: "",
+        img: "",
+        price: 0,
+        isAvailable: false,
+    };
+    activeProduct = activeProduct.id !== -1 ? activeProduct : dummyProduct;
+
     return (
         <Modal
-            isOpen={props.modalIsOpen}
-            onRequestClose={props.closeModal}
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
             style={customStyles}
             contentLabel="Example Modal"
             appElement={
@@ -34,7 +58,7 @@ export function ProductModal(props) {
             <div className="w-full md:w-card h-96 bg-white flex overflow-hidden z-max">
                 <div className="w-1/2 h-full">
                     <img
-                        src={props.actveProduct.img} // layout="fill"
+                        src={activeProduct.img} // layout="fill"
                         className="object-cover h-full"
                     />
                 </div>
@@ -43,7 +67,7 @@ export function ProductModal(props) {
                      items-start"
                 >
                     <h2 className="font-semibold text-2xl pb-2 mb-2 w-full">
-                        {props.actveProduct.name}
+                        {activeProduct.name}
                     </h2>
                     <p className="text-sm text-gray-500">Składniki:</p>
                     <ul className="product-list__wrapper">
@@ -53,15 +77,13 @@ export function ProductModal(props) {
                     </ul>
                     <p className="text-sm text-gray-500">Opis:</p>
                     <p className="flex-grow overflow-y-scroll bg-gray-100 rounded-lg mb-2 p-2">
-                        {props.actveProduct.description}
+                        {activeProduct.description}
                     </p>
                     <div className="flex flex-col items-start w-full ">
                         <p className="text-sm text-gray-500">Cena:</p>
                         <p className="text-lg font-medium mb-2"> 12.99zł</p>
                         <button
-                            onClick={() =>
-                                props.addCartItem(props.actveProduct.id)
-                            }
+                            onClick={() => addCartItem(activeProduct.id)}
                             className="btn btn--black btn--big"
                         >
                             Dodaj do koszyka
@@ -71,4 +93,6 @@ export function ProductModal(props) {
             </div>
         </Modal>
     );
-}
+};
+
+export { ProductModal, customStyles };

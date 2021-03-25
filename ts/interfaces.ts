@@ -7,4 +7,11 @@ interface IProduct {
     isAvailable: boolean;
 }
 
-export type { IProduct };
+interface IContextProps {
+    products: IProduct[];
+    cart: IProduct[];
+    username: string;
+    setContext?: (obj: object) => void;
+}
+
+export type { IProduct, IContextProps };

@@ -3,9 +3,10 @@ import { FC } from "react";
 interface IProps {
     q: string;
     setQ: (q: string) => void;
+    username: string;
 }
 
-const HeroSection: FC<IProps> = ({ q, setQ }) => {
+const HeroSection: FC<IProps> = ({ q, setQ, username }) => {
     return (
         <div
             className="pt-24 pb-24 md:pt-40 md:pb-40
@@ -13,7 +14,9 @@ const HeroSection: FC<IProps> = ({ q, setQ }) => {
         >
             <div className="h-2/4 w-full md:w-3/5 p-2 z-30 max-w-4xl">
                 <h1 className="text-5xl font-bold text-left ml-4 md:ml-0 mt-2 mb-2  text-shadow-xl">
-                    Trattoria deWiatr
+                    {username !== ""
+                        ? `Cześć ${username}!`
+                        : "Trattoria deWiatr"}
                 </h1>
                 <form className="flex flex-col">
                     <label className="text-md mt-3 mb-2 ml-4 md:ml-0">
