@@ -7,6 +7,7 @@ import { ProductList } from "@Components/ProductList";
 import { ProductModal } from "@Components/ProductModal";
 import { IProduct } from "ts/interfaces";
 import { UsernameModal } from "@Components/UsernameModal";
+import { dummyProduct } from "src/constants";
 
 export default function Home() {
     const { products, username, cart, setContext } = useContext(appContext);
@@ -15,7 +16,7 @@ export default function Home() {
     const [scrollVal, setScrollVal] = useState<number>(0);
     const [query, setQuery] = useState<string>("");
     const [modalIsOpen, setIsOpen] = useState<boolean>(false);
-    const [activeProduct, setActiveProduct] = useState<IProduct>({});
+    const [activeProduct, setActiveProduct] = useState<IProduct>(dummyProduct);
     const [showCart, setShowCart] = useState<boolean>(false);
     const [showUserModal, setUserModal] = useState<boolean>(true);
 
@@ -26,7 +27,7 @@ export default function Home() {
 
     function closeModal() {
         setIsOpen(false);
-        setActiveProduct({});
+        setActiveProduct(dummyProduct);
     }
 
     const updateScrollVal = () => {
@@ -75,7 +76,7 @@ export default function Home() {
         <div className="min-h-screen flex flex-col">
             <Head>
                 <title>
-                    {activeProduct.name
+                    {activeProduct.name && activeProduct.id !== -1
                         ? `Przeglądasz: ${activeProduct.name}`
                         : "Restauracja Trattoria deWiatr"}
                 </title>
@@ -95,7 +96,7 @@ export default function Home() {
                 openModal={openModal}
                 productList={productList}
             ></ProductList>
-            <footer className="bg-gray-900 text-white w-full h-14 flex flex-center">
+            <footer className="bg-black text-white w-full h-14 flex flex-center">
                 <p>Trattoria deWiatr </p>
             </footer>
             <ProductModal

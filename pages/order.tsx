@@ -1,5 +1,5 @@
 import { Navbar } from "@Components/Navbar";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { appContext } from "./_app";
 import { FiChevronLeft } from "react-icons/fi";
@@ -8,6 +8,25 @@ import Image from "next/image";
 
 const OrderPage = () => {
     const { cart } = useContext(appContext);
+    const [prepared, setPrepared] = useState(false);
+    const [sent, setSent] = useState(false);
+
+    useEffect(() => {
+        const preparedTimeout = setTimeout(() => {
+            setPrepared(true);
+        }, 1000);
+        const sentTimeout = setTimeout(() => {
+            setSent(true);
+        }, 1500);
+
+        return () => {
+            clearTimeout(preparedTimeout);
+            clearTimeout(sentTimeout);
+            setPrepared(false);
+            setSent(false);
+        };
+    }, []);
+
     return (
         <>
             <nav className="w-full h-12 bg-black flex justify-start items-center sticky top-0 bg-opacity-90 blurred text-white pl-2 z-max">
@@ -43,13 +62,21 @@ const OrderPage = () => {
                         <div className="flex w-full bg-white text-black border-t">
                             <div className="w-1/2 h-12 flex text-center flex-center">
                                 <p className="text-sm flex items-center">
-                                    <BsCheckCircle className="mr-1" />
+                                    {prepared ? (
+                                        <BsCheckCircle className="mr-1" />
+                                    ) : (
+                                        <BsX className="mr-1" />
+                                    )}
                                     Przygotowano
                                 </p>
                             </div>
                             <div className="w-1/2 h-12 flex text-center flex-center border-l">
                                 <p className="text-sm flex items-center">
-                                    <BsX className="mr-1" />
+                                    {sent ? (
+                                        <BsCheckCircle className="mr-1" />
+                                    ) : (
+                                        <BsX className="mr-1" />
+                                    )}
                                     Wysłano
                                 </p>
                             </div>

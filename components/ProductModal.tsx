@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Modal from "react-modal";
 import { IProduct } from "ts/interfaces";
+import { dummyProduct } from "../src/constants";
 
 const customStyles = {
     overlay: {
@@ -33,14 +34,6 @@ const ProductModal: FC<IProps> = ({
     closeModal,
     addCartItem,
 }) => {
-    const dummyProduct = {
-        id: -1,
-        name: "",
-        description: "",
-        img: "",
-        price: 0,
-        isAvailable: false,
-    };
     activeProduct = activeProduct.id !== -1 ? activeProduct : dummyProduct;
 
     return (
