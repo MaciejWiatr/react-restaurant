@@ -9,6 +9,7 @@ export const UsernameModal: FC = () => {
         setContext((c) => {
             return { ...c, username: inputRef.current.value };
         });
+        localStorage.setItem("name", inputRef.current.value);
     };
 
     return (

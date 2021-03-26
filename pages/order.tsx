@@ -3,17 +3,23 @@ import Link from "next/link";
 import { appContext } from "./_app";
 import { FiChevronLeft } from "react-icons/fi";
 import { BsCheckCircle, BsX } from "react-icons/bs";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Confetti from "react-confetti";
 
 const OrderPage = () => {
     const { cart } = useContext(appContext);
+    const router = useRouter();
     const [prepared, setPrepared] = useState(false);
     const [sent, setSent] = useState(false);
     const [barWidth, setBarWidth] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
 
     useEffect(() => {
+        if (cart.length < 1) {
+            router.push("/");
+        }
+
         const preparedTimeout = setTimeout(() => {
             setPrepared(true);
             setBarWidth(50);
@@ -63,7 +69,11 @@ const OrderPage = () => {
                 ) : null}
 
                 <div className="flex-grow flex flex-center">
-                    <div className="w-full md:w-card max-w-lg shadow-lg rounded overflow-hidden z-max bg-white blurred bg-opacity-75 m-2">
+                    <div
+                        className={`animate__animated w-full md:w-card max-w-lg shadow-lg rounded overflow-hidden z-max bg-white blurred bg-opacity-75 m-2 ${
+                            sent ? "animate__tada" : ""
+                        }`}
+                    >
                         <div className="w-full h-16 bg-black text-white flex flex-center text-xl font-semibold">
                             <h1>Twoje zamówienie</h1>
                         </div>
@@ -84,9 +94,9 @@ const OrderPage = () => {
                                 ? cart.map((p, index) => (
                                       <li
                                           key={index}
-                                          className="w-1/2 h-24 p-1 "
+                                          className="w-1/2 h-16 p-1 "
                                       >
-                                          <div className="bg-white w-full h-full rounded flex flex-center shadow-lg">
+                                          <div className="bg-white w-full h-full rounded flex flex-center shadow-md">
                                               <p>{p.name}</p>
                                           </div>
                                       </li>

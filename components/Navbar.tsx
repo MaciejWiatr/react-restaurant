@@ -27,7 +27,7 @@ const Navbar: FC<IProps> = ({ changeBg, showCart, setShowCart }) => {
                     <FiShoppingCart />
                 </button>
                 {cart.length > 0 ? (
-                    <div className="h-5 w-5 absolute right-3 -top-2 bg-red-500 text white rounded-full text-xs flex flex-center">
+                    <div className="h-5 w-5 absolute right-3 -top-2 bg-red-500 text white rounded-full text-xs flex flex-center animate__bounceIn">
                         {" "}
                         <p className="">{cart.length}</p>
                     </div>

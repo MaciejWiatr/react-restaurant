@@ -79,6 +79,12 @@ export default function Home() {
         if (username !== "") {
             setUserModal(false);
         }
+        if (localStorage.getItem("name")) {
+            setContext((c) => {
+                return { ...c, username: localStorage.getItem("name") };
+            });
+            setUserModal(false);
+        }
     }, [username]);
 
     return (
