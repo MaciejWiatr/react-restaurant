@@ -4,6 +4,7 @@ import { appContext } from "./_app";
 import { FiChevronLeft } from "react-icons/fi";
 import { BsCheckCircle, BsX } from "react-icons/bs";
 import { useRouter } from "next/router";
+import { useWindowSize } from "react-use";
 import Image from "next/image";
 import Confetti from "react-confetti";
 
@@ -14,12 +15,12 @@ const OrderPage = () => {
     const [sent, setSent] = useState(false);
     const [barWidth, setBarWidth] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
+    const { width, height } = useWindowSize();
 
     useEffect(() => {
         if (cart.length < 1) {
             router.push("/");
         }
-
         const preparedTimeout = setTimeout(() => {
             setPrepared(true);
             setBarWidth(50);
@@ -65,7 +66,7 @@ const OrderPage = () => {
             </nav>
             <div className="w-full min-h-screen flex overflow-hidden relative">
                 {showConfetti ? (
-                    <Confetti width={1920} height={1080}></Confetti>
+                    <Confetti width={width} height={height}></Confetti>
                 ) : null}
 
                 <div className="flex-grow flex flex-center">
