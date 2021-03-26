@@ -25,6 +25,7 @@ module.exports = {
             zIndex: {
                 max: "99",
                 nav: "9999",
+                confetti: "9999999",
             },
             ripple: (theme) => ({
                 colors: theme("colors"),

@@ -4,12 +4,14 @@ import { appContext } from "./_app";
 import { FiChevronLeft } from "react-icons/fi";
 import { BsCheckCircle, BsX } from "react-icons/bs";
 import Image from "next/image";
+import Confetti from "react-confetti";
 
 const OrderPage = () => {
     const { cart } = useContext(appContext);
     const [prepared, setPrepared] = useState(false);
     const [sent, setSent] = useState(false);
     const [barWidth, setBarWidth] = useState(0);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     useEffect(() => {
         const preparedTimeout = setTimeout(() => {
@@ -19,6 +21,7 @@ const OrderPage = () => {
         const sentTimeout = setTimeout(() => {
             setSent(true);
             setBarWidth(100);
+            setShowConfetti(true);
         }, 4000);
 
         return () => {
@@ -29,6 +32,18 @@ const OrderPage = () => {
             setBarWidth(0);
         };
     }, []);
+
+    useEffect(() => {
+        let confettiTimeout;
+        if (showConfetti) {
+            confettiTimeout = setTimeout(() => {
+                setShowConfetti(false);
+            }, 10000);
+        }
+        return () => {
+            clearTimeout(confettiTimeout);
+        };
+    }, [showConfetti]);
 
     return (
         <>
@@ -43,6 +58,10 @@ const OrderPage = () => {
                 </Link>
             </nav>
             <div className="w-full min-h-screen flex overflow-hidden relative">
+                {showConfetti ? (
+                    <Confetti width={1920} height={1080}></Confetti>
+                ) : null}
+
                 <div className="flex-grow flex flex-center">
                     <div className="w-full md:w-card max-w-lg shadow-lg rounded overflow-hidden z-max bg-white blurred bg-opacity-75 m-2">
                         <div className="w-full h-16 bg-black text-white flex flex-center text-xl font-semibold">

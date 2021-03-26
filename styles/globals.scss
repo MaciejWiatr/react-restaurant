@@ -54,3 +54,7 @@ a {
 .card {
     @apply w-full md:w-64 rounded shadow-lg overflow-hidden m-2 transform transition-all hover:scale-105 cursor-pointer;
 }
+
+canvas {
+    z-index: 200 !important;
+}
