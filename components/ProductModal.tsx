@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { IProduct } from "ts/interfaces";
 import { dummyProduct } from "../src/constants";
 
+// Definiuje niestandardowe style modala
 const customStyles = {
     overlay: {
         zIndex: "98",
@@ -21,6 +22,7 @@ const customStyles = {
     },
 };
 
+// Definiuje propy które przyjmuje mój komponent
 interface IProps {
     activeProduct: IProduct;
     modalIsOpen: boolean;
@@ -34,6 +36,7 @@ const ProductModal: FC<IProps> = ({
     closeModal,
     addCartItem,
 }) => {
+    // Sprawdzam czy dostarczony produkt jest aktywny czy też tymczasowy
     activeProduct = activeProduct.id !== -1 ? activeProduct : dummyProduct;
 
     return (
@@ -47,11 +50,12 @@ const ProductModal: FC<IProps> = ({
                     ? null
                     : document.getElementById("__next")
             }
+            // Ze względu na SSR muszę sprawdzić czy znajduje się po stronie klienta
         >
             <div className="w-full md:w-card h-96 bg-white flex overflow-hidden z-max">
                 <div className="w-1/2 h-full">
                     <img
-                        src={activeProduct.img} // layout="fill"
+                        src={activeProduct.img}
                         className="object-cover h-full"
                     />
                 </div>

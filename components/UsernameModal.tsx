@@ -2,13 +2,15 @@ import { appContext } from "pages/_app";
 import { FC, FormEvent, useContext, useRef } from "react";
 
 export const UsernameModal: FC = () => {
-    const { setContext } = useContext(appContext);
-    const inputRef = useRef(null);
+    const { setContext } = useContext(appContext); // Wyciągam funkcje setContext z globalnego kontekstu aplikacji
+    const inputRef = useRef(null); // Tworzę referencję do obiektu input
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault(); // Blokuje przeładowanie strony po wysłaniu formularza
         setContext((c) => {
+            // Za pomocą destrukturyzacji obiektu nadpisuje username znajdujący się w stanie globalnym aplikacji
             return { ...c, username: inputRef.current.value };
         });
+        // Zapisuje imie użytkownika do localstorage
         localStorage.setItem("name", inputRef.current.value);
     };
 

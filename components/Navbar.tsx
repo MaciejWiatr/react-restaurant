@@ -1,16 +1,36 @@
 import { appContext } from "pages/_app";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import CartElement from "./CartElement";
 
-interface IProps {
-    changeBg: boolean;
-    showCart: boolean;
-    setShowCart: (val: boolean) => void;
-}
+const Navbar: FC = () => {
+    const { cart } = useContext(appContext); // Korzystam z wartości cart znajdującej się w kontekście
+    const [changeBg, setChangeBg] = useState<boolean>(false); // Tworze zmienną służącą do sprawdzania czy navbar powinien być zablurowany
+    const [scrollVal, setScrollVal] = useState<number>(0); // Zmienna która będzie przechowywała wartość scrolla użytkownika
+    const [showCart, setShowCart] = useState<boolean>(false); // Zmienna przechowująca wartość boolowską która określa czy koszyk powinien się pokazywać
 
-const Navbar: FC<IProps> = ({ changeBg, showCart, setShowCart }) => {
-    const { cart } = useContext(appContext);
+    const updateScrollVal = () => {
+        // Uaktualnia wartość scrollVal aby była równa wartości scrolla użytkownika
+        setScrollVal(window.pageYOffset);
+    };
+
+    useEffect(() => {
+        // Dodaje event listener do scrolla
+        window.addEventListener("scroll", updateScrollVal);
+        return () => {
+            // Po usunięciu komponentu pozbywam się event listenera
+            window.removeEventListener("scroll", updateScrollVal);
+        };
+    }, []);
+
+    useEffect(() => {
+        // Jeżeli wartość scrolla jest większa niż 20 to zmieniam tło navbara
+        if (scrollVal > 20) {
+            setChangeBg(true);
+        } else {
+            setChangeBg(false);
+        }
+    }, [scrollVal]);
 
     return (
         <nav

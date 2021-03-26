@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+// Definiuje propy jakie przyjmie komponent
 interface IProps {
     q: string;
     setQ: (q: string) => void;

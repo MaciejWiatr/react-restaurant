@@ -1,3 +1,5 @@
+// Przykładowy produkt który służy do zachowania spójności danych
+// nawet jeżeli żaden faktyczny produkt nie jest aktywny
 const dummyProduct = {
     id: -1,
     name: "",
@@ -7,6 +9,7 @@ const dummyProduct = {
     isAvailable: false,
 };
 
+// Domyślny kontekst (stan) aplikacji
 const defaultContext = {
     products: [
         {

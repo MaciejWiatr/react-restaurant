@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 
+// Definiuje propy jakie przyjmuje komponent
 interface IProps {
     name: string;
     description: string;

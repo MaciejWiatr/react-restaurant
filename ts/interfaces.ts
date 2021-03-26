@@ -1,3 +1,5 @@
+// W tym pliku definiuje globalne interfejsy
+
 interface IProduct {
     id: number;
     name: string;
@@ -11,7 +13,13 @@ interface IContextProps {
     products: IProduct[];
     cart: IProduct[];
     username: string;
-    setContext?: (obj: object) => void;
+    setContext?: (obj: any) => void;
 }
 
-export type { IProduct, IContextProps };
+interface ICart {
+    products: IProduct[];
+    cart: IProduct[];
+    username: string;
+}
+
+export type { IProduct, IContextProps, ICart };

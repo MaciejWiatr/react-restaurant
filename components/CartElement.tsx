@@ -5,8 +5,10 @@ import Link from "next/link";
 const CartElement: FC = () => {
     const { cart, setContext } = useContext(appContext);
 
+    // Funkcja która czyści koszyk znajdujący się w globalnym kontekście
     const clearCart = () => {
         setContext((c) => {
+            // Używam destrukturyzacji obiektu aby nadpisać tylko jedną jego część, w tym przypadku jest to koszyk
             return { ...c, cart: [] };
         });
     };

@@ -1,47 +1,44 @@
 import Head from "next/head";
-import { useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { appContext } from "./_app";
 import { Navbar } from "@Components/Navbar";
 import HeroSection from "@Components/HeroSection";
 import { ProductList } from "@Components/ProductList";
 import { ProductModal } from "@Components/ProductModal";
-import { IProduct } from "ts/interfaces";
+import { IProduct, ICart } from "ts/interfaces";
 import { UsernameModal } from "@Components/UsernameModal";
 import { dummyProduct } from "src/constants";
 import { ToastContainer, toast } from "react-toastify";
 
-export default function Home() {
-    const { products, username, cart, setContext } = useContext(appContext);
-    const [productList, setProductList] = useState<IProduct[]>(products);
-    const [changeBg, setChangeBg] = useState<boolean>(false);
-    const [scrollVal, setScrollVal] = useState<number>(0);
-    const [query, setQuery] = useState<string>("");
-    const [modalIsOpen, setIsOpen] = useState<boolean>(false);
-    const [activeProduct, setActiveProduct] = useState<IProduct>(dummyProduct);
-    const [showCart, setShowCart] = useState<boolean>(false);
-    const [showUserModal, setUserModal] = useState<boolean>(true);
+export default function Home(): ReactNode {
+    const { products, username, cart, setContext } = useContext(appContext); // Wyciągam zmienne z globalnego kontekstu aplikacji
+    const [productList, setProductList] = useState<IProduct[]>(products); // Tworzę lokalną liste produktów którą mogę modyfikować podczas np. wyszukiwania
+    const [query, setQuery] = useState<string>(""); // Aktualne query czyli wartość pola wyszukiwarki
+    const [modalIsOpen, setIsOpen] = useState<boolean>(false); // Zmienna przechowująca czy modal jest otwarty
+    const [activeProduct, setActiveProduct] = useState<IProduct>(dummyProduct); // Zmienna przechowująca aktywnie przeglądany produkt
+    const [showUserModal, setUserModal] = useState<boolean>(true); // Zmienna przechowująca wartość boolowską która określa czy modal użytkownika powinien się pokazywać
 
-    function openModal(productId: number) {
+    const openModal = (productId: number) => {
+        // Funkcja otwiera modal i ustawia aktywnie przeglądany produkt na ten który został kliknięty
         setActiveProduct(products.find((p: IProduct) => p.id === productId));
         setIsOpen(true);
-    }
+    };
 
-    function closeModal() {
+    const closeModal = () => {
+        // Funkcja zamyka modal i ustawia aktywny produkt na tymczasowy
         setIsOpen(false);
         setActiveProduct(dummyProduct);
-    }
-
-    const updateScrollVal = () => {
-        setScrollVal(window.pageYOffset);
     };
 
     const addCartItem = (productId: number) => {
-        setContext((c) => {
+        setContext((c: ICart) => {
+            // Za pomocą deskturkturyzacji dodaje produkt do koszyka w globalnym kontekście aplikacji
             return {
                 ...c,
                 cart: [...cart, products.find((p) => p.id === productId)],
             };
         });
+        // Wyświetlam powiadomienie o dodanym produkcie
         toast(`Dodano ${activeProduct.name} do koszyka!`, {
             position: "bottom-left",
             autoClose: 2000,
@@ -53,21 +50,6 @@ export default function Home() {
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", updateScrollVal);
-        return () => {
-            window.removeEventListener("scroll", updateScrollVal);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (scrollVal > 20) {
-            setChangeBg(true);
-        } else {
-            setChangeBg(false);
-        }
-    }, [scrollVal]);
-
-    useEffect(() => {
         setProductList(
             products.filter((p) =>
                 p.name.toLowerCase().includes(query.toLowerCase())
@@ -76,6 +58,7 @@ export default function Home() {
     }, [query, setProductList]);
 
     useEffect(() => {
+        // Jeżeli użytkownik podał wcześniej imie to wyłączam UsernameModal
         if (username !== "") {
             setUserModal(false);
         }
@@ -91,16 +74,15 @@ export default function Home() {
         <div className="min-h-screen flex flex-col">
             <Head>
                 <title>
+                    {/* Jeżeli aktywny produkt istnieje i nie jest przykładowym produktem
+                        ustawiam title na "Przeglądasz: <nazwa_produktu>"
+                    */}
                     {activeProduct.name && activeProduct.id !== -1
                         ? `Przeglądasz: ${activeProduct.name}`
                         : "Restauracja Trattoria deWiatr"}
                 </title>
             </Head>
-            <Navbar
-                changeBg={changeBg}
-                showCart={showCart}
-                setShowCart={setShowCart}
-            ></Navbar>
+            <Navbar />
             {showUserModal ? <UsernameModal /> : null}
             <HeroSection
                 q={query}
