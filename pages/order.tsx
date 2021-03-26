@@ -138,6 +138,7 @@ const OrderPage = () => {
                         src="/order-bg.jpg"
                         objectFit="cover"
                         layout="fill"
+                        alt="order background"
                     ></Image>
                 </div>
             </div>

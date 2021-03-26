@@ -18,6 +18,7 @@ const Card: FC<IProps> = ({ name, description, id, openModal, img }) => {
                     layout="fill"
                     className="object-cover"
                     quality={80}
+                    alt={`zdjęcie ${name}`}
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
             </figure>

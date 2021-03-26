@@ -21,6 +21,7 @@ const Navbar: FC<IProps> = ({ changeBg, showCart, setShowCart }) => {
             <h1 className="font-medium z-50 ml-6">Trattoria deWiatr</h1>
             <div className="relative flex flex-centers">
                 <button
+                    name="cart__button"
                     className="mr-6 text-2xl focus:outline-none"
                     onClick={() => setShowCart(!showCart)}
                 >
