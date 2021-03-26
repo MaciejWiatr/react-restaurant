@@ -8,6 +8,7 @@ import { ProductModal } from "@Components/ProductModal";
 import { IProduct } from "ts/interfaces";
 import { UsernameModal } from "@Components/UsernameModal";
 import { dummyProduct } from "src/constants";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
     const { products, username, cart, setContext } = useContext(appContext);
@@ -40,6 +41,14 @@ export default function Home() {
                 ...c,
                 cart: [...cart, products.find((p) => p.id === productId)],
             };
+        });
+        toast(`Dodano ${activeProduct.name} do koszyka!`, {
+            position: "bottom-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
         });
     };
 
@@ -105,6 +114,17 @@ export default function Home() {
                 closeModal={closeModal}
                 addCartItem={addCartItem}
             ></ProductModal>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }

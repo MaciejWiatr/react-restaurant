@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import "../styles/globals.scss";
 import Head from "next/head";
 import { IContextProps } from "ts/interfaces";
+import "react-toastify/dist/ReactToastify.css";
 
 const defaultContext = {
     products: [

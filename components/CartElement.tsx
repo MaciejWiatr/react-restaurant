@@ -12,17 +12,17 @@ const CartElement: FC = () => {
     };
 
     return (
-        <div className="absolute w-64 right-4 top-6 shadow text-black rounded-t-lg z-max">
+        <div className="absolute w-72 right-4 top-6 shadow text-black rounded-t-lg z-max">
             <ul className="p-3 space-y-2 overflow-y-scroll h-48 bg-white bg-opacity-30 blurred rounded-t-lg">
                 {cart.map((p, index) => (
                     <li
                         key={index}
-                        className="bg-white rounded-lg flex items-stretch overflow-hidden"
+                        className="bg-white rounded-lg flex items-stretch overflow-hidden shadow-sm"
                     >
                         <p className="p-2 text-sm overflow-hidden flex-grow">
                             {p.name.substr(0, 100)}
                         </p>
-                        <div className="border-l flex items-center bg-gray-800 text-white">
+                        <div className="border-l flex items-center bg-gray-800 text-white w-16">
                             <p className="ml-2 mr-2 font-semibold ">
                                 {p.price}zł
                             </p>

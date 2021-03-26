@@ -24,6 +24,7 @@ module.exports = {
             },
             zIndex: {
                 max: "99",
+                nav: "9999",
             },
             ripple: (theme) => ({
                 colors: theme("colors"),
@@ -48,6 +49,7 @@ module.exports = {
 
             addUtilities(utils);
         }),
+        require("tailwindcss-question-mark"),
         require("tailwindcss-textshadow"),
         require("tailwindcss-ripple")(),
         require("@tailwindcss/forms"),
