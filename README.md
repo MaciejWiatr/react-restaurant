@@ -30,7 +30,7 @@ yarn dev
 👤 **Maciej Wiatr**
 
 -   Website: mwiatr.live
--   Twitter: [@maciej_wiatr](https://twitter.com/Maciej Wiatr)
+-   Twitter: [@maciej_wiatr](https://twitter.com/maciej_wiatr)
 -   Github: [@MaciejWiatr](https://github.com/MaciejWiatr)
 -   LinkedIn: [@maciej-wiatr](https://linkedin.com/in/maciej-wiatr)
 
